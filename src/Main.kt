@@ -1,12 +1,23 @@
+
 fun main() {
 
-
+    /***
+     *                  Covered test Cases for Sudoku board.
+     * 1-Given a board with duplicates in row, when validating, then return false.
+     * 2-Given a board with a row that contains less than 9 elements, when validating, then return false.
+     * 3-Given a board with a row contains more than 9 elements, when validating , then return false.
+     * 4-Given a board with inValid elements, when validating, then return false.
+     * 5-Given a board with duplicate in column, when validating, then return false.
+     * 6-Given a board with duplicates in subgrid, when validating, then return false.
+     * 7-Given a valid board, when validating, then return true.
+     * 8-Given a board with empty elements, when validating, then return true
+     */
     //------------------------ROW------------------------
     testCase(
         name = "Given a board with duplicates in row, when validating, then return false",
         actualResult = isValidSudoku(
             listOf(
-                listOf('5', '3', '3', '-', '7', '-', '-', '-', '-'),
+                listOf('5', '3', '3', '-', '7', '-', '-', '-', '-'),// <--
                 listOf('6', '-', '-', '1', '9', '5', '-', '-', '-'),
                 listOf('-', '9', '9', '-', '-', '-', '-', '6', '-'),
                 listOf('8', '-', '-', '-', '6', '-', '-', '-', '3'),
@@ -17,13 +28,13 @@ fun main() {
                 listOf('-', '-', '-', '-', '8', '-', '-', '7', '9')
             )
         ),
-        expectedResult = true
+        expectedResult = false
     )
     testCase(
         name = "Given a board with a row that contains less than 9 elements, when validating, then return false",
         actualResult = isValidSudoku(
             listOf(
-                listOf('5', '3'),
+                listOf('5', '3'),// <--
                 listOf('6', '-', '-', '1', '9', '5', '-', '-', '-'),
                 listOf('-', '9', '8', '-', '-', '-', '-', '6', '-'),
                 listOf('8', '-', '-', '-', '6', '-', '-', '-', '3'),
@@ -33,13 +44,13 @@ fun main() {
                 listOf('-', '-', '-', '4', '1', '9', '-', '-', '5'),
                 listOf('-', '-', '-', '-', '8', '-', '-', '7', '9')
             )
-        ), expectedResult = true
+        ), expectedResult = false
     )
     testCase(
         name = "Given a board with a row contains more than 9 elements, when validating , then return false",
         actualResult = isValidSudoku(
             listOf(
-                listOf('5', '3', '-', '-', '7', '-', '-', '-', '2', '1'),
+                listOf('5', '3', '-', '-', '7', '-', '-', '-', '2', '1'),// <--
                 listOf('6', '-', '-', '1', '9', '5', '-', '-', '-'),
                 listOf('-', '9', '8', '-', '-', '-', '-', '6', '-'),
                 listOf('8', '-', '-', '-', '6', '-', '-', '-', '3'),
@@ -49,15 +60,32 @@ fun main() {
                 listOf('-', '-', '-', '4', '1', '9', '-', '-', '5'),
                 listOf('-', '-', '-', '-', '8', '-', '-', '7', '9')
             )
-        ), expectedResult = true
+        ), expectedResult = false
+    )
+    testCase(
+        name = "Given a board with inValid elements, when validating, then return false",
+        actualResult = isValidSudoku(
+            listOf(
+                listOf('A', '/', '3', '-', '7', '-', '-', '-', '-'),// <--
+                listOf('B', '_', '-', '1', '9', '5', '-', '-', '-'),
+                listOf('C', '?', '9', '-', '-', '-', '-', '6', '-'),
+                listOf('8', '-', '-', '-', '6', '-', '-', '-', '3'),
+                listOf('4', '-', '-', '8', '-', '3', '-', '-', '1'),
+                listOf('7', '-', '-', '-', '2', '-', '-', '-', '6'),
+                listOf('-', '6', '-', '-', '-', '-', '2', '8', '-'),
+                listOf('-', '-', '-', '4', '1', '9', '-', '-', '5'),
+                listOf('-', '-', '-', '-', '8', '-', '-', '7', '9')
+            )
+        ),
+        expectedResult = false
     )
     // ------------------------Column------------------------
     testCase(
         name = "Given a board with duplicate in column, when validating, then return false",
         actualResult = isValidSudoku(
             listOf(
-                listOf('5', '3', '-', '-', '7', '-', '-', '-', '-'),
-                listOf('6', '3', '-', '1', '9', '5', '-', '-', '-'),
+                listOf('5', '3', '-', '-', '7', '5', '-', '-', '-'),// <--
+                listOf('5', '3', '-', '1', '9', '5', '-', '-', '-'),// <--
                 listOf('-', '9', '8', '-', '-', '-', '-', '6', '-'),
                 listOf('8', '-', '-', '-', '6', '-', '-', '-', '3'),
                 listOf('4', '-', '-', '8', '-', '3', '-', '-', '1'),
@@ -66,24 +94,24 @@ fun main() {
                 listOf('-', '-', '-', '4', '1', '9', '-', '-', '5'),
                 listOf('-', '-', '-', '-', '8', '-', '-', '7', '9')
             )
-        ), expectedResult = true
+        ), expectedResult = false
     )
     // ------------------------SubGrid------------------------
     testCase(
         name = "Given a board with duplicates in subgrid, when validating, then return false",
         actualResult = isValidSudoku(
             listOf(
-                listOf('5', '3', '-', '-', '7', '-', '-', '-', '1'),
-                listOf('6', '3', '-', '1', '9', '5', '-', '1', '-'),
+                listOf('5', '3', '-', '-', '7', '-', '-', '-', '1'),// <--
+                listOf('6', '3', '-', '1', '9', '5', '-', '1', '-'),// <--
                 listOf('-', '9', '8', '-', '-', '-', '-', '6', '-'),
                 listOf('8', '-', '-', '-', '6', '-', '-', '-', '3'),
                 listOf('4', '-', '-', '8', '-', '3', '-', '-', '1'),
                 listOf('7', '-', '-', '-', '2', '-', '-', '-', '6'),
                 listOf('-', '6', '-', '-', '-', '-', '2', '8', '-'),
-                listOf('-', '-', '-', '4', '1', '9', '5', '7', '5'),
-                listOf('-', '-', '-', '-', '8', '-', '-', '7', '9')
+                listOf('-', '-', '-', '4', '1', '9', '5', '7', '5'),// <--
+                listOf('-', '-', '-', '-', '8', '-', '-', '7', '9')// <--
             )
-        ), expectedResult = true
+        ), expectedResult = false
     )
     // ------------------------Valid Boards------------------------
     testCase(
