@@ -1,4 +1,3 @@
-
 fun main() {
 
     /***
@@ -149,37 +148,37 @@ fun main() {
     )
 
 
-    //region IP V4
-//    testCase(
-//        name = "Given an empty string, when validating, then return failed",
-//        actualResult = isValidIpV4(""),
-//        expectedResult = true
-//    )
-//    testCase(
-//        name = "Given a string that doesn't contain only numbers and dots, when validating, then return failed",
-//        actualResult = isValidIpV4("1.3.x"),
-//        expectedResult = true
-//    )
-//    testCase(
-//        name = "Given a string with length less than 7, when validating, then return failed",
-//        actualResult = isValidIpV4("1.1.1"),
-//        expectedResult = true
-//    )
-//    testCase(
-//        name = "Given an ip with octets that are less than 4 chars, when validating, then return failed",
-//        actualResult = isValidIpV4("251.30.12."),
-//        expectedResult = true
-//    )
-//    testCase(
-//        name = "Given an ip with octet length more than 1 and starts with 0, when validating, then return failed",
-//        actualResult = isValidIpV4("123.01.1.5"),
-//        expectedResult = true
-//    )
-//    testCase(
-//        name = "Given an ip with octet number that isn't between 0 and 255, when validating, then return failed",
-//        actualResult = isValidIpV4("-1.299.1.3"),
-//        expectedResult = true
-//    )
+//    region IP V4
+    testCase(
+        name = "Given an empty string, when validating, then return failed",
+        actualResult = isValidIpV4(""),
+        expectedResult = false
+    )
+    testCase(
+        name = "Given a string that doesn't contain only numbers and dots, when validating, then return failed",
+        actualResult = isValidIpV4("1.3.x"),
+        expectedResult = false
+    )
+    testCase(
+        name = "Given a string with length less than 7, when validating, then return failed",
+        actualResult = isValidIpV4("1.1.1"),
+        expectedResult = false
+    )
+    testCase(
+        name = "Given an ip with octets that are less than 4 chars, when validating, then return failed",
+        actualResult = isValidIpV4("251.30.12."),
+        expectedResult = false
+    )
+    testCase(
+        name = "Given an ip with octet length more than 1 and starts with 0, when validating, then return failed",
+        actualResult = isValidIpV4("123.01.1.5"),
+        expectedResult = false
+    )
+    testCase(
+        name = "Given an ip with octet number that isn't between 0 and 255, when validating, then return failed",
+        actualResult = isValidIpV4("-1.299.1.3"),
+        expectedResult = false
+    )
 }
 
 
@@ -190,11 +189,54 @@ fun testCase(name: String, actualResult: Boolean, expectedResult: Boolean) {
 }
 
 fun isValidIpV4(ipAddress: String): Boolean {
-    return false
+    if (ipAddress.isEmpty()) return false
+
+    val octets = ipAddress.split(".")
+    if (octets.size != 4) return false
+
+    for (octet in octets) {
+        if (octet.isEmpty()) return false
+
+        if (octet.any { !it.isDigit() }) return false
+
+        val number = octet.toIntOrNull() ?: return false
+
+        if (number !in 0..255) return false
+
+        if (octet.length > 1 && octet[0] == '0') return false
+    }
+
+    return true
 }
 
+
 fun isValidSudoku(board: List<List<Char>>): Boolean {
-    return false
+    if (board.size != 9 || board.any { it.size != 9 }) return false // Check board dimensions
+
+    val rows = Array(9) { mutableSetOf<Char>() }
+    val cols = Array(9) { mutableSetOf<Char>() }
+    val subGrids = Array(9) { mutableSetOf<Char>() }
+
+    for (row in 0..<9) {
+        for (column in 0..<9) {
+            val num = board[row][column]
+            if (num == '-') continue // Ignore empty cells
+            if (!num.isDigit() || num !in '1'..'9') return false
+
+            val subGridIndex = (row / 3) * 3 + (column / 3)
+
+            if (num in rows[row] || num in cols[column] || num in subGrids[subGridIndex])
+                return false
+
+
+            rows[row].add(num)
+            cols[column].add(num)
+            subGrids[subGridIndex].add(num)
+        }
+    }
+
+    return true
 }
+
 
 
