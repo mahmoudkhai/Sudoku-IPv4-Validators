@@ -1,4 +1,4 @@
-# Sudoku Validator & IPv4 Checker
+# Sudoku & IPv4 Validators
 
 This project contains two simple Kotlin functions:
 
