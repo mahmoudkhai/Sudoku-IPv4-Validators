@@ -22,7 +22,8 @@ Empty cells are represented with the character `'-'`.
 
 ### Flow Chart For Sudoku Board Validation Function:
 
-![Flow chart for sudoko](https://github.com/user-attachments/assets/3a6f6fe2-58a6-4204-9c04-16eff8dc972e)
+![Sudoko_FlowChart](https://github.com/user-attachments/assets/8b63ffe5-8e24-48cb-8c50-a81b5538c070)
+
 
 ## 2. IPv4 Address Validator
 
@@ -36,4 +37,5 @@ Check if a string is a valid IPv4 address. A valid IPv4 address should :
 - 
 ### Flow Chart For IPv4 Validation Function:
 
-![flow chart for IpV4 checker](https://github.com/user-attachments/assets/fca55771-8bf7-47be-9100-b5cd9ec6a666)
+![IpV4Checker](https://github.com/user-attachments/assets/a9dcfc81-f55b-4e76-845c-56e063f43c49)
+
