@@ -14,7 +14,7 @@ fun main() {
     //------------------------ROW------------------------
     testCase(
         name = "Given a board with duplicates in row, when validating, then return false",
-        actualResult = isValidSudoku(
+        actualResult = checkSudokuBoardValidation(
             listOf(
                 listOf('5', '3', '3', '-', '7', '-', '-', '-', '-'),// <--
                 listOf('6', '-', '-', '1', '9', '5', '-', '-', '-'),
@@ -31,7 +31,7 @@ fun main() {
     )
     testCase(
         name = "Given a board with a row that contains less than 9 elements, when validating, then return false",
-        actualResult = isValidSudoku(
+        actualResult = checkSudokuBoardValidation(
             listOf(
                 listOf('5', '3'),// <--
                 listOf('6', '-', '-', '1', '9', '5', '-', '-', '-'),
@@ -47,7 +47,7 @@ fun main() {
     )
     testCase(
         name = "Given a board with a row contains more than 9 elements, when validating , then return false",
-        actualResult = isValidSudoku(
+        actualResult = checkSudokuBoardValidation(
             listOf(
                 listOf('5', '3', '-', '-', '7', '-', '-', '-', '2', '1'),// <--
                 listOf('6', '-', '-', '1', '9', '5', '-', '-', '-'),
@@ -63,7 +63,7 @@ fun main() {
     )
     testCase(
         name = "Given a board with inValid elements, when validating, then return false",
-        actualResult = isValidSudoku(
+        actualResult = checkSudokuBoardValidation(
             listOf(
                 listOf('A', '/', '3', '-', '7', '-', '-', '-', '-'),// <--
                 listOf('B', '_', '-', '1', '9', '5', '-', '-', '-'),
@@ -81,7 +81,7 @@ fun main() {
     // ------------------------Column------------------------
     testCase(
         name = "Given a board with duplicate in column, when validating, then return false",
-        actualResult = isValidSudoku(
+        actualResult = checkSudokuBoardValidation(
             listOf(
                 listOf('5', '3', '-', '-', '7', '5', '-', '-', '-'),// <--
                 listOf('5', '3', '-', '1', '9', '5', '-', '-', '-'),// <--
@@ -98,7 +98,7 @@ fun main() {
     // ------------------------SubGrid------------------------
     testCase(
         name = "Given a board with duplicates in subgrid, when validating, then return false",
-        actualResult = isValidSudoku(
+        actualResult = checkSudokuBoardValidation(
             listOf(
                 listOf('5', '3', '-', '-', '7', '-', '-', '-', '1'),// <--
                 listOf('6', '3', '-', '1', '9', '5', '-', '1', '-'),// <--
@@ -115,7 +115,7 @@ fun main() {
     // ------------------------Valid Boards------------------------
     testCase(
         name = "Given a valid board, when validating, then return true",
-        actualResult = isValidSudoku(
+        actualResult = checkSudokuBoardValidation(
             board = listOf(
                 listOf('5', '3', '-', '-', '7', '-', '-', '-', '-'),
                 listOf('6', '-', '-', '1', '9', '5', '-', '-', '-'),
@@ -132,7 +132,7 @@ fun main() {
     )
     testCase(
         name = "Given a board with empty elements, when validating, then return true",
-        actualResult = isValidSudoku(
+        actualResult = checkSudokuBoardValidation(
             listOf(
                 listOf('-', '-', '-', '-', '-', '-', '-', '-', '-'),
                 listOf('-', '-', '-', '-', '-', '-', '-', '-', '-'),
@@ -151,33 +151,38 @@ fun main() {
 //    region IP V4
     testCase(
         name = "Given an empty string, when validating, then return failed",
-        actualResult = isValidIpV4(""),
+        actualResult = checkIPV4Validation(""),
         expectedResult = false
     )
     testCase(
         name = "Given a string that doesn't contain only numbers and dots, when validating, then return failed",
-        actualResult = isValidIpV4("1.3.x"),
+        actualResult = checkIPV4Validation("1.3.x"),
         expectedResult = false
     )
     testCase(
         name = "Given a string with length less than 7, when validating, then return failed",
-        actualResult = isValidIpV4("1.1.1"),
+        actualResult = checkIPV4Validation("1.1.1"),
         expectedResult = false
     )
     testCase(
-        name = "Given an ip with octets that are less than 4 chars, when validating, then return failed",
-        actualResult = isValidIpV4("251.30.12."),
+        name = "Given an ip with octets less than 4, when validating, then return failed",
+        actualResult = checkIPV4Validation("251.30.12."),
         expectedResult = false
     )
     testCase(
         name = "Given an ip with octet length more than 1 and starts with 0, when validating, then return failed",
-        actualResult = isValidIpV4("123.01.1.5"),
+        actualResult = checkIPV4Validation("123.01.1.5"),
         expectedResult = false
     )
     testCase(
         name = "Given an ip with octet number that isn't between 0 and 255, when validating, then return failed",
-        actualResult = isValidIpV4("-1.299.1.3"),
+        actualResult = checkIPV4Validation("-1.299.1.3"),
         expectedResult = false
+    )
+    testCase(
+        name = "Given a valid ip address, when validating, then return true",
+        actualResult = checkIPV4Validation("5.15.1.3"),
+        expectedResult = true
     )
 }
 
@@ -188,7 +193,7 @@ fun testCase(name: String, actualResult: Boolean, expectedResult: Boolean) {
     else println("Failed -> $name")
 }
 
-fun isValidIpV4(ipAddress: String): Boolean {
+fun checkIPV4Validation(ipAddress: String): Boolean {
     if (ipAddress.isEmpty()) return false
 
     val octets = ipAddress.split(".")
@@ -210,8 +215,8 @@ fun isValidIpV4(ipAddress: String): Boolean {
 }
 
 
-fun isValidSudoku(board: List<List<Char>>): Boolean {
-    if (board.size != 9 || board.any { it.size != 9 }) return false // Check board dimensions
+fun checkSudokuBoardValidation(board: List<List<Char>>): Boolean {
+    if (board.size != 9 || board.any { it.size != 9 }) return false
 
     val rows = Array(9) { mutableSetOf<Char>() }
     val cols = Array(9) { mutableSetOf<Char>() }
@@ -220,7 +225,7 @@ fun isValidSudoku(board: List<List<Char>>): Boolean {
     for (row in 0..<9) {
         for (column in 0..<9) {
             val num = board[row][column]
-            if (num == '-') continue // Ignore empty cells
+            if (num == '-') continue
             if (!num.isDigit() || num !in '1'..'9') return false
 
             val subGridIndex = (row / 3) * 3 + (column / 3)
