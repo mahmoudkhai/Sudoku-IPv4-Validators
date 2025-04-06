@@ -5,7 +5,7 @@ name: Run Kotlin Test Cases
 # Controls when the workflow will run
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   test:
