@@ -257,14 +257,13 @@ fun checkIPV4Validation(ipAddress: String): Boolean {
     return true
 }
 
-fun testCase(testDescription: String, actualResult: Boolean, expectedResult: Boolean) {
+fun testCase(testDescription: String, actualResult: Boolean, expectedResult: Boolean) =
     if (actualResult != expectedResult) {
         throw Exception("❌ Test failed: $testDescription")
     } else {
         println("✅ Passed: $testDescription")
     }
 
-}
 
 
 
