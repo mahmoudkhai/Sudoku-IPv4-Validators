@@ -19,7 +19,7 @@ jobs:
       run: sudo apt update && sudo apt install -y kotlin
 
     - name: Compile main.kt
-      run: kotlinc main.kt -include-runtime -d main.jar
+      run: kotlinc src/Main.kt -include-runtime -d main.jar
 
     - name: Run Tests
       run: java -jar main.jar

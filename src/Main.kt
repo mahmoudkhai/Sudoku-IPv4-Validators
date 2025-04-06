@@ -215,8 +215,8 @@ fun checkSudokuBoardValidation(board: List<List<Char>>): Boolean {
     val cols = Array(9) { mutableSetOf<Char>() }
     val subGrids = Array(9) { mutableSetOf<Char>() }
 
-    for (row in 0..<9) {
-        for (column in 0..<9) {
+    for (row in 0 until 9) {
+        for (column in 0 until 9) {
             val num = board[row][column]
             if (num == '-') continue
             if (!num.isDigit() || num !in '1'..'9') return false
@@ -258,9 +258,12 @@ fun checkIPV4Validation(ipAddress: String): Boolean {
 }
 
 fun testCase(testDescription: String, actualResult: Boolean, expectedResult: Boolean) {
-    return if (expectedResult == actualResult)
-        println("Success -> $testDescription")
-    else println("Failed -> $testDescription")
+    if (actualResult != expectedResult) {
+        throw Exception("❌ Test failed: $testDescription")
+    } else {
+        println("✅ Passed: $testDescription")
+    }
+
 }
 
 
