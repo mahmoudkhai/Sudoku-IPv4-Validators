@@ -1,0 +1,27 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Run Kotlin Test Cases
+
+# Controls when the workflow will run
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Kotlin Compiler
+      run: sudo apt update && sudo apt install -y kotlin
+
+    - name: Compile main.kt
+      run: kotlinc main.kt -include-runtime -d main.jar
+
+    - name: Run Tests
+      run: java -jar main.jar
+
+
