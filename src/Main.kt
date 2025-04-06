@@ -215,8 +215,8 @@ fun checkSudokuBoardValidation(board: List<List<Char>>): Boolean {
     val cols = Array(9) { mutableSetOf<Char>() }
     val subGrids = Array(9) { mutableSetOf<Char>() }
 
-    for (row in 0..<9) {
-        for (column in 0..<9) {
+    for (row in 0 until 9) {
+        for (column in 0 until 9) {
             val num = board[row][column]
             if (num == '-') continue
             if (!num.isDigit() || num !in '1'..'9') return false
