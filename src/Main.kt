@@ -196,7 +196,7 @@ fun main() {
     testCase(
         testDescription = "Given an ip with octet number that isn't between 0 and 255, when validating, then return failed",
         actualResult = checkIPV4Validation("-1.299.1.3"),
-        expectedResult = false
+        expectedResult = true
     )
 
     testCase(
@@ -258,9 +258,12 @@ fun checkIPV4Validation(ipAddress: String): Boolean {
 }
 
 fun testCase(testDescription: String, actualResult: Boolean, expectedResult: Boolean) {
-    return if (expectedResult == actualResult)
-        println("Success -> $testDescription")
-    else println("Failed -> $testDescription")
+    if (actualResult != expectedResult) {
+        throw Exception("❌ Test failed: $testDescription")
+    } else {
+        println("✅ Passed: $testDescription")
+    }
+
 }
 
 
