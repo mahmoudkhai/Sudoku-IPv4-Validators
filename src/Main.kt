@@ -196,7 +196,7 @@ fun main() {
     testCase(
         testDescription = "Given an ip with octet number that isn't between 0 and 255, when validating, then return failed",
         actualResult = checkIPV4Validation("-1.299.1.3"),
-        expectedResult = true
+        expectedResult = false
     )
 
     testCase(
