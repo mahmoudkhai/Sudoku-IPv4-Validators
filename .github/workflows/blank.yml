@@ -18,10 +18,10 @@ jobs:
     - name: Install Kotlin Compiler
       run: sudo apt update && sudo apt install -y kotlin
 
-    - name: Compile main.kt
-      run: kotlinc main.kt -include-runtime -d main.jar
+    - name: Compile Main.kt
+      run: kotlinc Main.kt -include-runtime -d Main.jar
 
     - name: Run Tests
-      run: java -jar main.jar
+      run: java -jar Main.jar
 
 
